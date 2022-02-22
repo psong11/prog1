@@ -14,6 +14,7 @@ struct node
 int main()
 {
     srand(time(NULL));
+  
     cout << "hello world" << endl;
 
     return 0;
