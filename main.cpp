@@ -6,20 +6,15 @@ using namespace std;
 #include <vector>
 
 //typedef struct node node;
-struct node
+struct Node
 {
     float coord[4];
 };
 
-node create_Node()
-{
-    return
-}
-
 //typedef struct Graph Graph;
 struct Graph
 {
-    node nodes[];
+    Node nodes[];
 };
 
 Graph generate_graph(int n, int dim)
@@ -33,7 +28,9 @@ Graph generate_graph(int n, int dim)
     {
         for (int i = 0; i < n; i++)
         {
-            node newnode = [ float(rand() / RAND_MAX), 0, 0, 0 ] graph.nodes[i] = node.coord[];
+            Node node;
+            node.coord = [ float(rand() / RAND_MAX), 0, 0, 0 ];
+            graph.nodes[i] = node;
         }
     }
     if (dim == 2)
