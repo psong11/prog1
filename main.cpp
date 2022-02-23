@@ -1,54 +1,91 @@
 #include <iostream>
-using namespace std;
+#include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include <vector>
+#include <random>
+#include <chrono>
+using namespace std;
 
-//typedef struct node node;
-struct Node
+// A structure to represent a node in adjacency list
+struct AdjListNode
 {
     float coord[4];
+    int weight;
+    struct AdjListNode *next;
+};
+// A structure to represent an adjacency list
+struct AdjList
+{
+    struct AdjListNode *head; // pointer to head node of list
+};
+// A structure to represent a graph. A graph is an array of adjacency lists.
+// Size of array will be V (number of vertices in graph)
+struct AdjListGraph
+{
+    int n;
+    struct AdjList *array;
 };
 
-//typedef struct Graph Graph;
+struct Node
+{
+    int id;
+    vector<float> coord;
+};
+
 struct Graph
 {
-    Node nodes[];
+    vector<Node> nodes;
 };
+
+mt19937_64 rng;
+uint64_t timeSeed = std::chrono::high_resolution_clock::now().time_since_epoch().count();
+seed_seq ss{uint32_t(timeSeed & 0xffffffff), uint32_t(timeSeed >> 32)};
+rng.seed(ss);
+
+uniform_real_distribution<double> unif(0, 1);
+
+Node create_node(int dim)
+{
+}
 
 Graph generate_graph(int n, int dim)
 {
-
     srand(time(NULL));
-  
-    cout << "hello world" << endl;
 
     Graph graph;
 
-    if (dim == 1)
+    for (int i = 0; i < n; i++) // for each node
     {
-        for (int i = 0; i < n; i++)
+        Node node;
+        for (int j = 0; j < dim; j++) // for each dimension
         {
-            Node node;
-            node.coord = [ float(rand() / RAND_MAX), 0, 0, 0 ];
-            graph.nodes[i] = node;
+            graph.nodes.push_back(rand());
         }
-    }
-    if (dim == 2)
-    {
-    }
-    if (dim == 3)
-    {
-    }
-    if (dim == 4)
-    {
-    }
-    else
-    {
+
+        Node node;
+
+        graph.nodes[i] = node;
     }
 
     return graph;
+}
+
+Graph generate_more_nodes(Graph g)
+{
+}
+
+float prims(Graph graph, Node s)
+{
+    float weight;
+
+    // for each vertex in the MST set of vertices
+    // look at all neighboring vertices that aren't in the MST, and pick the smallest weight
+    // add that weight into the weight variable
+    // add that corresponding vertex to the MST set of vertices
+
+    return weight;
 }
 
 int main(int argc, char **argv)
@@ -59,17 +96,16 @@ int main(int argc, char **argv)
 
     if (dim < 1 || dim > 4)
     {
-        invalid_argument("Please enter a valid dimension.")
+        invalid_argument("Please enter a valid dimension.");
     }
+    //---------^ SETUP STUFF ^---------------------------
 
     float average;
-    Graph mst;
 
     // For 'trial' number of times...
     for (int i = 0; i < trials; i++)
     {
-        // Generate a random graph
-        Graph graph = generate_graph(n, dim);
+        // Generate part of the random graph
 
         // Find the MST weight of this random graph
 
@@ -77,23 +113,6 @@ int main(int argc, char **argv)
     }
 
     // return the output in the form: average(average weight of mst over the trials) numpoints numtrials dimension
-
-    /* Let us create the following graph
-        2 3
-    (0)--(1)--(2)
-    | / \ |
-    6| 8/ \5 |7
-    | / \ |
-    (3)-------(4)
-            9     */
-    int graph[V][V] = {{0, 2, 0, 6, 0},
-                       {2, 0, 3, 8, 5},
-                       {0, 3, 0, 0, 7},
-                       {6, 8, 0, 0, 9},
-                       {0, 5, 7, 9, 0}};
-
-    // Print the solution
-    primMST(graph);
 
     return 0;
 }
